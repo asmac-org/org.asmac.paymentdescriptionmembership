@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<extension key="org.asmac.paymentdescriptionmembership" type="module">
+  <file>paymentdescriptionmembership</file>
+  <name>org.asmac.paymentdescriptionmembership</name>
+  <description>FIXME</description>
+  <license>BSD-2-Clause</license>
+  <maintainer>
+    <author>FIXME</author>
+    <email>FIXME</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">http://FIXME</url>
+    <url desc="Documentation">http://FIXME</url>
+    <url desc="Support">http://FIXME</url>
+    <url desc="Licensing">http://opensource.org/licenses/BSD-2-Clause</url>
+  </urls>
+  <releaseDate>2023-05-22</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>5.61</ver>
+  </compatibility>
+  <comments>This is a new, undeveloped module</comments>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <civix>
+    <namespace>CRM/Paymentdescriptionmembership</namespace>
+    <format>23.02.1</format>
+    <angularModule>crmPaymentdescriptionmembership</angularModule>
+  </civix>
+  <mixins>
+    <mixin>mgd-php@1.0.0</mixin>
+    <mixin>setting-php@1.0.0</mixin>
+    <mixin>smarty-v2@1.0.1</mixin>
+  </mixins>
+</extension>
