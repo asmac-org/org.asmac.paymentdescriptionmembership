@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <extension key="org.asmac.paymentdescriptionmembership" type="module">
   <file>paymentdescriptionmembership</file>
-  <name>org.asmac.paymentdescriptionmembership</name>
-  <description>FIXME</description>
+  <name>ASMAC Payment Description Show Renewal and Membership Type</name>
+  <description>Rework description sent to PayPal and Stripe to include signup vs. renewal and Membership Type using alterPaymentProcessorParams hook.</description>
   <license>BSD-2-Clause</license>
   <maintainer>
-    <author>FIXME</author>
-    <email>FIXME</email>
+    <author>Jeff Kellem</author>
+    <email>tech@asmac.org</email>
   </maintainer>
   <urls>
     <url desc="Main Extension Page">http://FIXME</url>
-    <url desc="Documentation">http://FIXME</url>
-    <url desc="Support">http://FIXME</url>
+    <url desc="Documentation">https://github.com/asmac-org/org.asmac.paymentdescriptionmembership</url>
+    <url desc="Support">http://asmac.org/contact/</url>
     <url desc="Licensing">http://opensource.org/licenses/BSD-2-Clause</url>
   </urls>
   <releaseDate>2023-05-22</releaseDate>
