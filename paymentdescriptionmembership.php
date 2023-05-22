@@ -103,7 +103,7 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
     // CiviCRM Core PayPal -- only tested with PayPal Web Standard
     //    Uses array for rawParams and cookedParams
     $description = $rawParams['description'];
-    if (str_contains($description, $expected_title) {
+    if (str_contains($description, $expected_title)) {
       $cid = $rawParams['contactID'];
       $selectMembership = $rawParams['selectMembership'];
     }
