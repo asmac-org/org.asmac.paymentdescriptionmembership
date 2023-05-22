@@ -59,3 +59,107 @@ function paymentdescriptionmembership_civicrm_enable(): void {
 //  ]);
 //  _paymentdescriptionmembership_civix_navigationMenu($menu);
 //}
+
+// --- Actual code for extension below here. ---
+
+/**
+ * Hook for altering payment parameters before talking to a payment processor back end.
+ *
+ * Definition will look like this:
+ *
+ *   function hook_civicrm_alterPaymentProcessorParams(
+ *     $paymentObj,
+ *     &$rawParams,
+ *     &$cookedParams
+ *   );
+ *
+ * @param CRM_Core_Payment $paymentObj
+ *   Instance of payment class of the payment processor invoked (e.g., 'CRM_Core_Payment_Dummy')
+ *   See discussion in CRM-16224 as to whether $paymentObj should be passed by reference.
+ * @param array|\Civi\Payment\PropertyBag &$rawParams
+ *    array of params as passed to to the processor
+ * @param array|\Civi\Payment\PropertyBag &$cookedParams
+ *     params after the processor code has translated them into its own key/value pairs
+ *
+ * @return mixed
+ *   This return is not really intended to be used.
+ */
+function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($paymentObj, &$rawParams, &$cookedParams) {
+  \Civi::log()->debug(' rawParams: {raw}\ncookedParams: {cooked}', [
+    'raw' => $rawParams,
+    'cooked' => $cookedParams,
+    'paymentObj' => $paymentObj
+  ]);
+
+  $expected_title = 'Member Signup and Renewal';
+
+  $modify_description = FALSE;
+  $cid = NULL;
+  $selectMembership = NULL;
+  $renewsignup = 'Signup';
+
+  // grab contact ID and membership type selected from rawParams
+  if ($paymentObj instanceof CRM_Core_Payment_PayPalImpl) {
+    // CiviCRM Core PayPal -- only tested with PayPal Web Standard
+    //    Uses array for rawParams and cookedParams
+    $description = $rawParams['description'];
+    if (str_contains($description, $expected_title) {
+      $cid = $rawParams['contactID'];
+      $selectMembership = $rawParams['selectMembership'];
+    }
+  }
+  elseif ($paymentObj instanceof CRM_Core_Payment_Stripe) {
+    // com.drastikbydesign.stripe CiviCRM extension version 6.8.2.
+    //    Uses propertyBag for $rawParams and ignores $cookedParams as of 22 May 2023, 6.8.2.
+    // FIXME: hard-coded for membership signup/renewal form name
+    if ($rawParams->getDescription() == $expected_title) {
+      $cid = $rawParams->getContactID();
+      \Civi::log()->debug('    {description}', [
+        'description' => $rawParams->getDescription()
+      ]);
+      $selectMembership = $rawParams->getCustomProperty('selectMembership');
+    }    
+  }
+
+  // only modify description if expected form and params needed are set
+  $modify_description = ($cid and $selectMembership);
+  if ($modify_description) {
+    if ($cid) {
+      // guess if renewal based on membership start_date existing for this contact ID
+      $membership = new CRM_Member_DAO_Membership();
+      $membership->contact_id = $cid;
+      $membership->find(TRUE);
+      if ($membership->start_date) {
+        $renewsignup = 'Renewal';
+      }
+      \Civi::log()->debug('    {cid} {renewsignup} {membership}', [
+        'cid' => $cid,
+        'renewsignup' => $renewsignup,
+        'membership' => $membership
+      ]);
+    }
+    $membershipType = CRM_Member_BAO_MembershipType::getMembershipType($selectMembership);
+    \Civi::log()->debug('    SETTING NEW DESCRIPTION {selectMembership} {membershipType}', [
+      'selectMembership' => $selectMembership,
+      'membershipType' => $membershipType
+    ]);
+
+    $newDescription = 'Member ' . $renewsignup . ': ' . $membershipType['name'];
+
+    if ($paymentObj instanceof CRM_Core_Payment_Stripe) {
+      // Stripe extension modifies more after calling alterPaymentParams hook, adding the cidXmembershipID
+      $rawParams->setDescription($newDescription);
+      //$rawParams->setDescription('TEST:: ' . $rawParams->getDescription());
+      \Civi::log()->debug(' AFTER Stripe rawParams: {raw}', [
+        'raw' => $rawParams
+      ]);
+    } 
+    elseif ($paymentObj instanceof CRM_Core_Payment_PayPalImpl) {
+      $old_item_name = $cookedParams['item_name'];
+      $cookedParams['item_name'] = str_replace($expected_title, $newDescription, $old_item_name);
+      \Civi::log()->debug('    AFTER PayPal cookedParams: {cooked}', [
+        'cooked' => $cookedParams
+      ]);
+    }
+  }
+}
