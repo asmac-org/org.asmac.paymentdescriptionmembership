@@ -131,11 +131,13 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
       if ($membership->start_date) {
         $renewsignup = 'Renewal';
       }
+      /* testing
       \Civi::log()->debug('    {cid} {renewsignup} {membership}', [
         'cid' => $cid,
         'renewsignup' => $renewsignup,
         'membership' => $membership
       ]);
+      */
     }
     $membershipType = CRM_Member_BAO_MembershipType::getMembershipType($selectMembership);
     if (! $membershipType) {
