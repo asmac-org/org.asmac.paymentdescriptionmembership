@@ -16,11 +16,11 @@
   </urls>
   <releaseDate>2023-05-22</releaseDate>
   <version>1.0</version>
-  <develStage>beta</develStage>
+  <develStage>stable</develStage>
   <compatibility>
     <ver>5.61</ver>
   </compatibility>
-  <comments>Debug log enabled. Modifies description for PayPal Web Standard and Stripe payment processors for "Member Signup and Renewal" to show "Member Renewal: Full Membership" instead of that "Member Signup and Renewal" title.</comments>
+  <comments>Modifies description for PayPal Web Standard and Stripe payment processors for "Member Signup and Renewal" to show "Member Renewal: Full Membership" instead of that "Member Signup and Renewal" title.</comments>
   <classloader>
     <psr0 prefix="CRM_" path="."/>
     <psr4 prefix="Civi\" path="Civi"/>
