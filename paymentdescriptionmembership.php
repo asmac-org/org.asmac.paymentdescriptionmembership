@@ -85,11 +85,13 @@ function paymentdescriptionmembership_civicrm_enable(): void {
  *   This return is not really intended to be used.
  */
 function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($paymentObj, &$rawParams, &$cookedParams) {
+  /* testing
   \Civi::log()->debug(' rawParams: {raw}\ncookedParams: {cooked}', [
     'raw' => $rawParams,
     'cooked' => $cookedParams,
     //'paymentObj' => $paymentObj
   ]);
+  */
 
   $expected_title = 'Member Signup and Renewal';
 
@@ -97,6 +99,7 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
   $cid = NULL;
   $selectMembership = NULL;
   $renewsignup = 'Signup';
+
   // grab contact ID and membership type selected from rawParams
   if ($paymentObj instanceof CRM_Core_Payment_PayPalImpl) {
     // CiviCRM Core PayPal -- only tested with PayPal Web Standard
@@ -152,16 +155,20 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
     if ($paymentObj instanceof CRM_Core_Payment_Stripe) {
       // Stripe extension modifies more after calling alterPaymentParams hook, adding the cidXmembershipID
       $rawParams->setDescription($newDescription);
+      /* testing
       \Civi::log()->debug(' AFTER Stripe rawParams: {raw}', [
         'raw' => $rawParams
       ]);
+      */
     } 
     elseif ($paymentObj instanceof CRM_Core_Payment_PayPalImpl) {
       $old_item_name = $cookedParams['item_name'];
       $cookedParams['item_name'] = str_replace($expected_title, $newDescription, $old_item_name);
+      /*
       \Civi::log()->debug('    AFTER PayPal cookedParams: {cooked}', [
         'cooked' => $cookedParams
       ]);
+      */
     }
   }
 }
