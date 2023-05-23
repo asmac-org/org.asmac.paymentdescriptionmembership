@@ -13,7 +13,7 @@ On the Stripe side, the descriptions currently look like:
 
 In an ideal world, the other spots that reference `Member Signup and Renewal` as text for that contribution page would also indicate the signup or renewal with the selected membership type. If that happens—where the `description` ends up with that information—then this extension will no longer be needed for this feature and it would work across all payment processors.
 
-This has only been tested with the [Stripe extension](https://lab.civicrm.org/extensions/stripe) 6.8.2 and CiviCRM 5.61 with the Core [PayPal Web Standard](https://docs.civicrm.org/sysadmin/en/latest/setup/payment-processors/paypal-standard/) payment processors. Expect that it'll probably work with the other Core PayPal payment processors.
+This has only been tested with the [Stripe extension](https://lab.civicrm.org/extensions/stripe) 6.8.2 and CiviCRM 5.61 with the Core [PayPal Web Standard](https://docs.civicrm.org/sysadmin/en/latest/setup/payment-processors/paypal-standard/) payment processors. Expect that it'll probably work with the other Core PayPal payment processors. Will need modifications to work with other payment processors.
 
 The extension is licensed under [BSD-2-Clause](LICENSE.txt).
 
@@ -55,5 +55,7 @@ Install and enable CiviCRM extension. There are no settings. This is just a hook
 With Stripe or PayPal Web Standard enabled for the `Member Signup and Renewal` contribution page, try a test link membership signup or renewal. Ideally, you should see one of the examples above.
 
 ## Known Issues
+
+Only works with the [Stripe extension](https://lab.civicrm.org/extensions/stripe) 6.8.2 and CiviCRM with the Core [PayPal Web Standard](https://docs.civicrm.org/sysadmin/en/latest/setup/payment-processors/paypal-standard/) payment processors. Hardcoded to the processors and the Contribution page named `Member Signup and Renewal`.
 
 This will not work with the **PayPal Checkout** in [Omnipay Multi Processor Payment Processor For CiviCRM](https://github.com/eileenmcnaughton/nz.co.fuzion.omnipaymultiprocessor) extension. The info about `contactID` and `selectedMembership` is not provided in the `rawParams` passed to the [`alterPaymentProcessorParams` hook](https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterPaymentProcessorParams/).
