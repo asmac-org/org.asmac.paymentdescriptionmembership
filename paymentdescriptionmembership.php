@@ -150,7 +150,6 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
     if ($paymentObj instanceof CRM_Core_Payment_Stripe) {
       // Stripe extension modifies more after calling alterPaymentParams hook, adding the cidXmembershipID
       $rawParams->setDescription($newDescription);
-      //$rawParams->setDescription('TEST:: ' . $rawParams->getDescription());
       \Civi::log()->debug(' AFTER Stripe rawParams: {raw}', [
         'raw' => $rawParams
       ]);
