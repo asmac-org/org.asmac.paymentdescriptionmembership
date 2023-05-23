@@ -138,10 +138,12 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
       ]);
     }
     $membershipType = CRM_Member_BAO_MembershipType::getMembershipType($selectMembership);
-    \Civi::log()->debug('    SETTING NEW DESCRIPTION {selectMembership} {membershipType}', [
-      'selectMembership' => $selectMembership,
-      'membershipType' => $membershipType
-    ]);
+    if (! $membershipType) {
+      \Civi::log()->debug('    membershipType not found? {selectMembership} {membershipType}', [
+        'selectMembership' => $selectMembership,
+        'membershipType' => $membershipType
+      ]);
+    }
 
     $newDescription = 'Member ' . $renewsignup . ': ' . $membershipType['name'];
 
