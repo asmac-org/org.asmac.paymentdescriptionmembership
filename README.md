@@ -20,7 +20,7 @@ The extension is licensed under [BSD-2-Clause](LICENSE.txt).
 ## Requirements
 
 * PHP v7.4+ (but only tested on PHP 8.0.28)
-* CiviCRM 5.61+
+* CiviCRM 5.61.2+
 * Only works with the Contribution page with a title of `Member Signup and Renewal`.
 
 ## Installation (Web UI)
