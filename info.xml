@@ -9,18 +9,18 @@
     <email>tech@asmac.org</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://FIXME</url>
+    <url desc="Main Extension Page">https://github.com/asmac-org/org.asmac.paymentdescriptionmembership</url>
     <url desc="Documentation">https://github.com/asmac-org/org.asmac.paymentdescriptionmembership</url>
     <url desc="Support">http://asmac.org/contact/</url>
     <url desc="Licensing">http://opensource.org/licenses/BSD-2-Clause</url>
   </urls>
   <releaseDate>2023-05-22</releaseDate>
   <version>1.0</version>
-  <develStage>alpha</develStage>
+  <develStage>beta</develStage>
   <compatibility>
     <ver>5.61</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>debug log on</comments>
   <classloader>
     <psr0 prefix="CRM_" path="."/>
     <psr4 prefix="Civi\" path="Civi"/>
