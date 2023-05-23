@@ -88,7 +88,7 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
   \Civi::log()->debug(' rawParams: {raw}\ncookedParams: {cooked}', [
     'raw' => $rawParams,
     'cooked' => $cookedParams,
-    'paymentObj' => $paymentObj
+    //'paymentObj' => $paymentObj
   ]);
 
   $expected_title = 'Member Signup and Renewal';
@@ -97,7 +97,6 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
   $cid = NULL;
   $selectMembership = NULL;
   $renewsignup = 'Signup';
-
   // grab contact ID and membership type selected from rawParams
   if ($paymentObj instanceof CRM_Core_Payment_PayPalImpl) {
     // CiviCRM Core PayPal -- only tested with PayPal Web Standard
