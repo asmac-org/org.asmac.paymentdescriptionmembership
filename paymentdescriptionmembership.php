@@ -161,6 +161,7 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
       if ( !empty($cookedParams) ) {
         if ( !empty($cookedParams['payment_intent_data']) ) {
           $oldDescription = $cookedPArams['payment_intent_data']['description'];
+          // preserve cidXmembershipID for Stripe Checkout added in Stripe ext 6.9
           $cookedParams['payment_intent_data']['description'] = str_replace($expected_title, $newDescription, $oldDescription);
         }
       }
