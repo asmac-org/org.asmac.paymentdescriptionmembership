@@ -158,7 +158,8 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
       // Stripe extension version 6.9 (30 Jun 2023) uses cookedParams arg for Stripe Checkout payment processor
       if ( !empty($cookedParams) ) {
         if ( !empty($cookedParams['payment_intent_data']) ) {
-          $cookedParams['payment_intent_data']['description'] = $newDescription;
+          $oldDescription = $cookedPArams['payment_intent_data']['description'];
+          $cookedParams['payment_intent_data']['description'] = str_replace($expected_title, $newDescription, $oldDescription);
         }
       }
       /* testing
