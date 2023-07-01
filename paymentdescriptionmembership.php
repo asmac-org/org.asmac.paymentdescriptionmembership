@@ -155,6 +155,12 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
     if ($paymentObj instanceof CRM_Core_Payment_Stripe) {
       // Stripe extension modifies more after calling alterPaymentParams hook, adding the cidXmembershipID
       $rawParams->setDescription($newDescription);
+      // Stripe extension version 6.9 (30 Jun 2023) uses cookedParams arg for Stripe Checkout payment processor
+      if ( !empty($cookedParams) ) {
+        if ( !empty($cookedParams['payment_intent_data']) ) {
+          $cookedParams['payment_intent_data']['description'] = $newDescription;
+        }
+      }
       /* testing
       \Civi::log()->debug(' AFTER Stripe rawParams: {raw}', [
         'raw' => $rawParams
