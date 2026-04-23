@@ -116,7 +116,7 @@ function paymentdescriptionmembership_civicrm_alterPaymentProcessorParams($payme
     // FIXME: hard-coded for membership signup/renewal form name
     if ($rawParams->getDescription() == $expected_title) {
       $cid = $rawParams->getContactID();
-      $selectMembership = $rawParams->getCustomProperty('selectMembership');
+      $selectMembership = $rawParams->has('selectMembership') ? $rawParams->getCustomProperty('selectMembership') : NULL;
       /*
       \Civi::log()->debug('    {description}', [
         'description' => $rawParams->getDescription()
