@@ -38,6 +38,6 @@
   </mixins>
   <tags>
     <tag>topic:payment-processor</tag>
-    <tag>comp:CiviContribue</tag>
+    <tag>comp:CiviContribute</tag>
   </tags>
 </extension>
